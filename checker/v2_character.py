@@ -1,5 +1,5 @@
-from utils.constants import STATUS_CODE
 from utils.http_client import HttpClient
+from utils.constants import STATUS_CODE
 
 
 class Checker:

@@ -1,7 +1,7 @@
-import pytest
-from utils.http_client import HttpClient
 from checker.v2_character import Checker
+import pytest
 import random
+from utils.http_client import HttpClient
 from utils.data_utils import prepare_invalid_data_for_post_character
 
 
@@ -25,8 +25,8 @@ class TestPostCharacter:
 
     @pytest.mark.parametrize("invalid_data", prepare_invalid_data_for_post_character())
     def test_post_characters_negative(self, basic_auth, invalid_data):
-        """ Проверяем создание нового персонажа, валидируем данные для запроса с возвращенными данными.
-        После проверяем, возвращается ли созданный персонаж из коллекции
+        """ Проверяем, что с невалидными данными персонаж не создается.
+            После проверяем, что персонаж не возвращается из коллекции
         """
         request = "/v2/character"
         response = HttpClient(auth=basic_auth).post(path=request, json=invalid_data)

@@ -1,5 +1,5 @@
-import random
 import copy
+import random
 
 
 def prepare_invalid_data_for_post_character():
