@@ -62,5 +62,5 @@ class TestPostCharacter:
         """ Негативный тест на отсутствие авторизации
         """
         request = "/v2/character"
-        response = HttpClient(auth=basic_auth).post(path=request, json=prepare_data)
+        response = HttpClient(auth=None).post(path=request, json=prepare_data)
         Checker().check_auth(response)
