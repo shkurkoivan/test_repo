@@ -10,11 +10,15 @@ class HttpClient:
         self.base_address = self.host + self.port
         self.auth = auth
 
-    def get(self, path="/", params=None, headers=None):
-        print (self.auth)
+    def get(self, path="/", headers=None):
         url = f"{self.base_address}{path}"
-        return requests.get(url=url, params=params, headers=headers, auth=self.auth)
+        return requests.get(url=url, headers=headers, auth=self.auth)
 
-    def post(self, path="/", params=None, data=None, json=None, headers=None):
+    def post(self, path="/", json=None, headers=None):
+        if not headers:
+            headers = {
+                'Content-type': 'application/json'
+            }
+
         url = f"{self.base_address}{path}"
-        return requests.post(url=url, params=params, data=data, json=json, headers=headers, auth=self.auth)
+        return requests.post(url=url, json=json, headers=headers, auth=self.auth)
