@@ -14,7 +14,7 @@ class TestGetCharacter:
         response = response.json()['result']
         name = np.random.choice(response)['name']
         name.replace(" ", "+")
-        return name
+        yield name
 
 
     def test_get_characters(self, basic_auth):

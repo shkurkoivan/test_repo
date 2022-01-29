@@ -8,7 +8,7 @@ from utils.data_utils import prepare_invalid_data_for_post_character
 
 class TestPostCharacter:
 
-    @pytest.fixture(scope="function")
+    @pytest.fixture(scope="class")
     def prepare_data(self, basic_auth):
         request_data = {"name": "TestUser" + str(random.choice([0, 10000000])), "universe": "Marvel Universe",
                         "education": "High school (unfinished)", "weight": random.choice([60, 150]),
@@ -56,5 +56,11 @@ class TestPostCharacter:
             response = HttpClient(auth=basic_auth).post(path=request, json=prepare_data_for_overload_post_character[i])
             if i == 200:
                 response_list.append(response)
-
         Checker(auth=basic_auth).check_post_character_overload(response_list[0])
+
+    def test_post_characters_negative_auth(self, basic_auth, prepare_data):
+        """ Негативный тест на отсутствие авторизации
+        """
+        request = "/v2/character"
+        response = HttpClient(auth=basic_auth).post(path=request, json=prepare_data)
+        Checker().check_auth(response)
