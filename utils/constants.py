@@ -6,3 +6,6 @@ class STATUS_CODE(Enum):
     BAD_REQUEST = 400
     UNAUTHORIZED = 401
 
+
+class COLLECTION(Enum):
+    ITEMS_CAPACITY = 500

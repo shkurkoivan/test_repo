@@ -10,7 +10,7 @@ class TestGetCharacter:
     def character_to_request(self, basic_auth):
         request = "/v2/characters"
         response = HttpClient(auth=basic_auth).get(path=request)
-        Checker.check_get_characters(response)
+        Checker().check_get_characters(response)
         response = response.json()['result']
         name = np.random.choice(response)['name']
         name.replace(" ", "+")
@@ -18,7 +18,7 @@ class TestGetCharacter:
 
 
     def test_get_characters(self, basic_auth):
-        """ Проверяем, получение коллекции.
+        """ Проверяем получение коллекции.
             По-хорошему, надо бы сделать метод на наполнение в случае пустой базы, но здесь я схалтурил.
         """
         request = "/v2/characters"
