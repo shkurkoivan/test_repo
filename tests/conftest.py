@@ -1,7 +1,6 @@
 import pytest
 from utils.http_client import HttpClient
 from checker.v2_character import Checker
-import numpy as np
 import random
 import copy
 
@@ -12,7 +11,7 @@ def character_to_request(basic_auth):
     response = HttpClient(auth=basic_auth).get(path=request)
     Checker().check_get_characters(response)
     response = response.json()["result"]
-    character = np.random.choice(response)
+    character = random.choice(response)
     yield character
 
 
