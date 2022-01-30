@@ -38,3 +38,13 @@ class HttpClient:
 
         url = f"{self.base_address}{path}"
         return requests.put(url=url, json=json, headers=headers, auth=self.auth)
+
+    def delete(self, path=None, params=None, headers=None):
+        url = f"{self.base_address}{path}"
+        # Приходится вручную склеивать params, т.к. бэкенд не маппит "%2B%" на "+"
+        if params:
+            url += "?"
+            for i in params.keys():
+                params[i] = urllib.parse.quote_plus([params[i]][0])
+                url += i + "=" + params[i]
+        return requests.delete(url=url, headers=headers, auth=self.auth)

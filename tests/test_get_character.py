@@ -1,6 +1,9 @@
 from checker.v2_character import Checker
 import pytest
 from utils.http_client import HttpClient
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 
 class TestGetCharacter:
@@ -11,6 +14,7 @@ class TestGetCharacter:
         """
         request = "/v2/characters"
         response = HttpClient(auth=basic_auth).get(path=request)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_get_characters(response)
 
     @pytest.mark.parametrize('execution_number', range(3))
@@ -25,6 +29,7 @@ class TestGetCharacter:
         request = f"/v2/character"
         params = {"name": character_name}
         response = HttpClient(auth=basic_auth).get(path=request, params=params)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_get_character(character_to_request, response)
 
     @pytest.mark.parametrize("name_to_request", ["", "-12301", " ", "1111111111111111111"*100])
@@ -33,6 +38,7 @@ class TestGetCharacter:
         """
         request = f"/v2/character?name={name_to_request}"
         response = HttpClient(auth=basic_auth).get(path=request)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_get_character_negative(response)
 
     def test_get_random_character_negative_auth(self, character_to_request):
@@ -40,6 +46,7 @@ class TestGetCharacter:
         """
         request = f"/v2/character?name={character_to_request}"
         response = HttpClient(auth=None).get(path=request)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_auth(response)
 
     def test_get_characters_negative_auth(self):
@@ -47,4 +54,5 @@ class TestGetCharacter:
         """
         request = "/v2/characters"
         response = HttpClient(auth=None).get(path=request)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_auth(response)

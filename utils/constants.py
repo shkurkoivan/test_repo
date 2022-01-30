@@ -9,3 +9,4 @@ class STATUS_CODE(Enum):
 
 class COLLECTION(Enum):
     ITEMS_MAX_CAPACITY = 500
+    ITEMS_MIN_AMOUNT = 302

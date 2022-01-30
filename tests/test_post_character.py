@@ -1,6 +1,9 @@
 from checker.v2_character import Checker
 import pytest
 from utils.http_client import HttpClient
+import logging
+
+LOGGER = logging.getLogger(__name__)
 
 
 class TestPostCharacter:
@@ -11,6 +14,7 @@ class TestPostCharacter:
         """
         request = "/v2/character"
         response = HttpClient(auth=basic_auth).post(path=request, json=prepare_data_for_post_character)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker(auth=basic_auth).check_post_character(prepare_data_for_post_character, response)
 
     @pytest.mark.parametrize('execution_number', range(6))
@@ -21,6 +25,7 @@ class TestPostCharacter:
         request = "/v2/character"
         response = HttpClient(auth=basic_auth).post(path=request,
                                                     json=invalid_data_for_post_character[execution_number])
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker(auth=basic_auth).check_send_invalid_character(invalid_data_for_post_character[execution_number],
                                                               response)
 
@@ -28,10 +33,11 @@ class TestPostCharacter:
         """ Проверяем ограничение на количество персонажей"
         """
         response_list = []
-        for i in range(0, 201):
+        for i in range(0, 500):
             request = "/v2/character"
             response = HttpClient(auth=basic_auth).post(path=request, json=prepare_data_for_overload_post_character[i])
-            if i == 200:
+            LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
+            if i == 499:
                 response_list.append(response)
         Checker(auth=basic_auth).check_post_character_overload(response_list[0])
 
@@ -40,4 +46,5 @@ class TestPostCharacter:
         """
         request = "/v2/character"
         response = HttpClient(auth=None).post(path=request, json=prepare_data_for_post_character)
+        LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_auth(response)

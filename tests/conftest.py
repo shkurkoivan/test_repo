@@ -6,7 +6,7 @@ import random
 import copy
 
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="class")
 def character_to_request(basic_auth):
     request = "/v2/characters"
     response = HttpClient(auth=basic_auth).get(path=request)

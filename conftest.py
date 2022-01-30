@@ -10,8 +10,7 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope="session")
 def basic_auth(request):
-    #login_info = request.config.getoption("login")
-    #password_info = request.config.getoption("password")
-    #credentials = (login_info, password_info)
-    credentials = ('', '')
+    login_info = request.config.getoption("login")
+    password_info = request.config.getoption("password")
+    credentials = (login_info, password_info)
     yield credentials
