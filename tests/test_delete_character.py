@@ -26,7 +26,7 @@ class TestDeleteCharacter:
         LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_delete_character_negative(response)
 
-    def test_delete_characters_negative_auth(self, character_to_request):
+    def test_delete_character_negative_auth(self, character_to_request):
         """ Негативный тест на отсутствие авторизации
         """
         character_name = character_to_request["name"]

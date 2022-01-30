@@ -62,10 +62,15 @@ class Checker:
         # проверяем наличие персонажа в колллекции
         assert self.is_character_in_the_collection(name=response["name"]) is True
 
-    def check_send_invalid_character(self, request, response):
+    def check_post_non_unique_character(self, response):
         assert response.status_code == STATUS_CODE.BAD_REQUEST.value, f"Negative test did not passed!" \
                                                                       f"Actual code is {response.status_code}" \
                                                                       f"Actual reason is {response.reason}"
+
+    def check_send_invalid_character(self, request, response):
+        assert response.status_code == STATUS_CODE.BAD_REQUEST.value, f"Negative test did not passed!" \
+                                                                      f"Actual code is {response.status_code}" \
+                                                                      f"Actual reason is {response.reaso}"
         assert self.is_character_in_the_collection(name=request["name"]) is False
 
     def check_post_character_overload(self, response):

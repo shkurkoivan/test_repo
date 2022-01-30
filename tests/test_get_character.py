@@ -49,7 +49,7 @@ class TestGetCharacter:
         LOGGER.info(f"{request}, {response.status_code}, {response.json()}")
         Checker().check_auth(response)
 
-    def test_get_characters_negative_auth(self):
+    def test_get_character_negative_auth(self):
         """ Негативный тест на отсутствие авторизации
         """
         request = "/v2/characters"
